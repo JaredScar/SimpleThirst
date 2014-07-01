@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,9 @@ public class Main extends JavaPlugin implements Listener {
                         p.addPotionEffect(pe);
                         p.damage(settings.getDouble("DamagePerZeroThirst"));
                     }
+                    if(p.getLevel() == 25) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("Warning.TwentyFiveThirstMessage")));
+                    }
                     if(p.getLevel() == 5) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("Warnings.FiveThirstLeft")));
                         }
@@ -72,5 +76,11 @@ public class Main extends JavaPlugin implements Listener {
         if(!p.hasPlayedBefore()) {
             p.setLevel(this.settings.getInt("Level"));
         }
+    }
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+        Player p = e.getEntity();
+        p.setLevel(this.settings.getInt("Level"));
+        p.sendMessage(this.settings.getString("Warnings.ResetLevel"));
     }
 }
