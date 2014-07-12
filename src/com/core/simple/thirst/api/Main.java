@@ -26,7 +26,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Main extends JavaPlugin implements Listener {
     private FileConfiguration settings;
     public void onEnable() {
-        this.getConfig().options().copyDefaults(true);
         this.saveDefaultConfig();
         this.settings = this.getConfig();
         this.getServer().getPluginManager().registerEvents(this, this);
