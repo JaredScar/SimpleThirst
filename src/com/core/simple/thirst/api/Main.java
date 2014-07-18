@@ -63,7 +63,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onConsume(PlayerItemConsumeEvent e) {
         Player p = e.getPlayer();
         if(e.getItem() !=null) {
-            if(e.getItem().getType() == Material.POTION) {
+            if(e.getItem().getType() == Material.POTION && e.getItem().getDurability() == 0) {
                 p.setLevel(this.settings.getInt("Level"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.settings.getString("Warnings.ResetLevel")));
             }
